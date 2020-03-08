@@ -1,5 +1,13 @@
 
-SELECT *
+1.SELECT *
 FROM Customers;
 
+2.SELECT FirstName
+FROM Customers;
+
+3.SELECT FirstName
+FROM Customers
+WHERE CustomerID = 1;
+
+4.UPDATE Customers SET FirstName = 'Lerato', LastName = 'Mabitso' WHERE CustomerID = 1;
 
