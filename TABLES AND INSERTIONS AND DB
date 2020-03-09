@@ -1,40 +1,44 @@
 CREATE DATABASE umuzi;
 
 create table Customers(
-    customerID serial primary key,unique
-    FirstName varchar(50) not null,
-    LastName varchar(50) not null,
-    Gender varchar(10) not null,CHECK (Gender = 'MALE' OR GENDER = 'FEMALE' );
-    Address varchar(200) not null,
-    Phone varchar(15) not null,
-    Email varchar(100) not null,
-    City varchar(20) not null,
-    Country varchar(50) not null
+  CustomerID serial primary key ,
+  Unique(CustomerID),
+  FirstName varchar(50) NOT NULL,
+  LastName varchar(50) NOT NULL,
+  Gender varchar(10) NOT NULL,CHECK (Gender = 'Male' OR Gender = 'Female' ),
+  Address varchar(200) NOT NULL,
+  Phone varchar(15) NOT NULL,
+  Email varchar(100) NOT NULL,CHECK (Email like '%_@__%.__%'),
+  City varchar(20) NOT NULL,
+  Country varchar(50) NOT NULL
 );
 
-alter table Customers 
+Alter table Customers 
 Add constraint chk_email check (Email like '%_@__%.__%');
 
 create table Payments(
-    customerID int references customers(customerID),
-    PaymentID serial primary key,unique
+    CustomerID int references Customers(CustomerID),
+    PaymentID serial primary key,
     PaymentDate date not null,
     Amount decimal not null, CHECK(Amount > 0)
 );
 
 
-create table products(
-    ProductID serial primary key,unique
+create table Products(
+    ProductID serial primary key,
+    unique(ProductID),
     ProductName varchar(100) not null,
     Description varchar(300) not null,
     BuyPrice decimal not null
 );
+
 create table Employees(
-    EmployeeID serial primary key,unique
-    FirstName varchar(50) not null,
-    LastName varchar(50) not null,
-    Email varchar(100) not null,
-    JobTitle varchar(20)
+    EmployeeID serial primary key,
+    unique(EmployeeID),
+    FirstName varchar(50) NOT NULL,
+    LastName varchar(50) NOT NULL,
+    Email varchar(100) NOT NULL,
+    JobTitle varchar(20) NOT NULL
 );
 
 create table Orders(
@@ -42,26 +46,10 @@ create table Orders(
     ProductID int references Products(ProductID),
     PaymentID int references Payments(PaymentID),
     FulfilledByEmployeeID int references Employees(EmployeeID),
-    DateRequired date,
-    DateShipped date,
+    DateRequired date not null,
+    DateShipped date, CHECK(DateRequired > DateShipped),
     Status varchar(20) not null
 );
-
-
-Alter table Orders
-ADD CONSTRAINT chk dates
-Check (DateRequired > DateShipped)
-
-
-
-CREATE DOMAIN domain_email AS citext
-CHECK(
-   VALUE ~ '^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'+
-);
-
-
-Adding data into the tables using the INSERT QUERY
-
 INSERT INTO Customers(FirstName, LastName, Gender, Address, Phone, Email, City, Country)
 VALUES('John', 'Hibert', 'Male', '284 chaucer st', '084789657', 'john@gmail.com', 'johannesburg', 'South Africa'),
     ('Thando', 'Sithole', 'Female', '240 Sect 1', '0794445584', 'thando@gmail.com', 'Cape Town', 'South Africa'),
@@ -88,3 +76,5 @@ INSERT INTO Products(ProductId, ProductName, Description, BuyPrice)
 VALUES('1', 'Harley Davidson Chopper', 'This replica features working kickstand, front suspension, gear-shift lever', '150.75'),
     ('2', 'Classic Car', 'Turnable front wheels, steering function', '550.75'),
     ('3', ' Sports car', 'Turnable front wheels, steering function', '700.60');
+
+
