@@ -29,7 +29,7 @@ create table Products(
     unique(ProductID),
     ProductName varchar(100) not null,
     Description varchar(300) not null,
-    BuyPrice decimal not null
+    BuyPrice Decimal(50) not null
 );
 
 create table Employees(
@@ -48,7 +48,7 @@ create table Orders(
     FulfilledByEmployeeID int references Employees(EmployeeID),
     DateRequired date not null,
     DateShipped date, CHECK(DateRequired > DateShipped),
-    Status varchar(20) not null
+    Status varchar(20) not null,CHECK(Status = "shippped" or Status = "Not Shipped"
 );
 
 

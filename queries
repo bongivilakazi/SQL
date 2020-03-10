@@ -4,6 +4,7 @@ SELECT *
 
 SELECT FirstName
 FROM Customers;
+ORDER BY FirstName ASC;
 
 SELECT FirstName
 FROM Customers
@@ -30,21 +31,21 @@ WHERE Buyprice BETWEEN '100'
 AND '600';
 
 SELECT *
-    FROM customers
+    FROM Customers
 WHERE city = 'Berlin'
 AND country = 'Germany';
 
 SELECT *
-    FROM customers
+    FROM Customers
 WHERE city = 'Cape Town'
 OR city = 'Durban';
 
 SELECT *
-    FROM products
+    FROM  Products
 WHERE Buyprice > '500';
 
-SELECT SUM(amount)
-FROM payments;
+SELECT SUM(Amount)
+FROM Payments;
 
 SELECT COUNT( * )
 FROM Orders
@@ -61,4 +62,4 @@ ON Customers.CustomerID = Payments.CustomerID;
 
 SELECT *
     FROM Products
-WHERE description LIKE 'Turnable front wheels%';
+WHERE DESCRIPTION LIKE 'Turnable front wheels%';
