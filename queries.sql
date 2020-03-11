@@ -52,7 +52,7 @@ FROM Orders
 WHERE Status = 'Shipped';
 
 
-SELECT AVG(Buyprice *12) as Dollar, AVG(Buyprice) as Rand
+SELECT AVG(Buyprice / 12) as Dollar, AVG(Buyprice) as Rand
 FROM Products;
 
 SELECT Customers.CustomerID, Payments.PaymentID
